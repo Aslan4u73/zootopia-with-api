@@ -5,3 +5,4 @@ zootopia_from_github/
 .guides/
 .settings
 .env
+__pycache__/
