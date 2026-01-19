@@ -1,24 +1,4 @@
-import os
-import requests
-
-
-def load_data_from_api(name):
-    """Holt Tiere von der API und gibt eine Liste zurück."""
-    api_key = os.getenv("API_NINJAS_KEY")
-    if not api_key:
-        print("ERROR: API Key fehlt! Terminal: export API_NINJAS_KEY='...'")
-        return []
-
-    url = f"https://api.api-ninjas.com/v1/animals?name={name}"
-    response = requests.get(url, headers={"X-Api-Key": api_key})
-
-    print("STATUS:", response.status_code)
-
-    if response.status_code != 200:
-        print("ERROR:", response.status_code, response.text)
-        return []
-
-    return response.json()
+import data_fetcher
 
 
 def serialize_animal(animal):
@@ -39,8 +19,8 @@ def serialize_animal(animal):
 
 
 def main():
-    animal_name = input("Enter a name of an animal: ").strip()
-    animals_data = load_data_from_api(animal_name)
+    animal_name = input("Please enter an animal: ").strip()
+    animals_data = data_fetcher.fetch_data(animal_name)
 
     if not animals_data:
         output = f'<h2>The animal "{animal_name}" doesn\'t exist.</h2>'
