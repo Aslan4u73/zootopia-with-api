@@ -4,3 +4,4 @@ zootopia_from_github/
 .codio
 .guides/
 .settings
+.env
