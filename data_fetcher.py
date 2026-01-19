@@ -1,29 +1,13 @@
 import os
 import requests
+from dotenv import load_dotenv
 
 API_URL = "https://api.api-ninjas.com/v1/animals"
 
 
-def load_env():
-    """Lädt API_KEY aus der Datei .env (wenn vorhanden)."""
-    if not os.path.exists(".env"):
-        return
-
-    with open(".env", "r", encoding="utf-8") as handle:
-        for line in handle:
-            line = line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-
-            key, value = line.split("=", 1)
-            key = key.strip()
-            value = value.strip().strip("'").strip('"')
-            os.environ[key] = value
-
-
 def fetch_data(animal_name):
     """Fetches animals data for the given animal_name from the API."""
-    load_env()
+    load_dotenv()
 
     api_key = os.getenv("API_KEY")
     if not api_key:
